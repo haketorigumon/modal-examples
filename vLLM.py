@@ -12,6 +12,7 @@ vllm_image = (
         add_python="3.12",
     )
     .entrypoint([])
+    .apt_install("git")
     .uv_pip_install(
         "huggingface_hub[hf_transfer]",
    )
