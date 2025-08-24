@@ -13,9 +13,9 @@ vllm_image = (
     )
     .entrypoint([])
     .uv_pip_install(
-        "vllm",
         "huggingface_hub[hf_transfer]",
    )
+    .run_commands("pip install git+https://github.com/vllm-project/vllm.git")
     .env({"VLLM_USE_PRECOMPILED": "1",
         "VLLM_TEST_USE_PRECOMPILED_NIGHTLY_WHEEL": "1"",
         })
