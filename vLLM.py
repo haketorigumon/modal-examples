@@ -15,7 +15,10 @@ vllm_image = (
     .uv_pip_install(
         "vllm",
         "huggingface_hub[hf_transfer]",
-    )
+   )
+    .env({"VLLM_USE_PRECOMPILED": "1",
+        "VLLM_TEST_USE_PRECOMPILED_NIGHTLY_WHEEL": "1"",
+        })
 )
 
 
