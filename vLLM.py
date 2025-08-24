@@ -38,7 +38,7 @@ app = modal.App("example-gpt-oss-inference")
 
 N_GPU = 1
 MINUTES = 60  # seconds
-VLLM_PORT = 8000
+VLLM_PORT = 4321
 
 
 @app.function(
@@ -64,7 +64,7 @@ def serve():
         "--host",
         "localhost",
         "--port",
-        "4321",
+        str(VLLM_PORT),
         "--enable-auto-tool-choice",
         "--tool-call-parser",
         "seed_oss",
@@ -79,7 +79,6 @@ def serve():
         "bfloat16",
         "--served-model-name",
         "seed_oss",
-        str(VLLM_PORT),
     ]
 
     # enforce-eager disables both Torch compilation and CUDA graph capture
