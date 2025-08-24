@@ -61,7 +61,6 @@ def serve():
         "python3",
         "-m",
         "vllm.entrypoints.openai.api_server",
-        "--revision",
         "--host",
         "localhost",
         "--port",
