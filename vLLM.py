@@ -12,14 +12,12 @@ vllm_image = (
         add_python="3.12",
     )
     .entrypoint([])
-    .apt_install("git")
     .uv_pip_install(
+        "vllm",
         "huggingface_hub[hf_transfer]",
-   )
-    .run_commands("pip install git+https://github.com/vllm-project/vllm.git")
-    .env({"VLLM_USE_PRECOMPILED": "1",
-        "VLLM_TEST_USE_PRECOMPILED_NIGHTLY_WHEEL": "1",
-        })
+        pre=True,
+        extra_options="--extra-index-url https://wheels.vllm.ai/nightly",
+    )
 )
 
 
