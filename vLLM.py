@@ -23,31 +23,16 @@ MODEL_NAME = "ByteDance-Seed/Seed-OSS-36B-Instruct"
 MODEL_REVISION = "6f42c8b5bf8f3f687bd6fb28833da03a19867ce8"
 
 hf_cache_vol = modal.Volume.from_name("huggingface-cache", create_if_missing=True)
-
-# The first time you run a new model or configuration with vLLM on a fresh machine,
-# a number of artifacts are created. We also cache these artifacts.
-
 vllm_cache_vol = modal.Volume.from_name("vllm-cache", create_if_missing=True)
-
-# There are a number of compilation settings for vLLM. Compilation improves inference performance
-# but incur extra latency at engine start time. We offer a high-level variable for controlling this trade-off.
 
 FAST_BOOT = False  # slower boots but faster inference
 
-# Among the artifacts that are created at startup are CUDA graphs,
-# which allow the replay of several kernel launches for the price of one,
-# reducing CPU overhead. We over-ride the defaults with a smaller number of sizes
-# that we think better balances latency from future JIT CUDA graph generation
-# and startup latency.
 
 MAX_INPUTS = 32  # how many requests can one replica handle? tune carefully!
 CUDA_GRAPH_CAPTURE_SIZES = [  # 1, 2, 4, ... MAX_INPUTS
     1 << i for i in range((MAX_INPUTS).bit_length())
 ]
 
-# ## Build a vLLM engine and serve it
-
-# The function below spawns a vLLM instance listening at port 8000, serving requests to our model.
 
 app = modal.App("example-gpt-oss-inference")
 
@@ -72,14 +57,14 @@ def serve():
     import subprocess
 
     cmd = [
-        "vllm",
-        "serve",
-        "--uvicorn-log-level=info",
-        MODEL_NAME,
+        "python3",
+        "-m",
+        "vllm.entrypoints.openai.api_server",
         "--revision",
-        MODEL_REVISION,
-        "--served-model-name",
-        MODEL_NAME,
+        "--host",
+        "localhost",
+        "--port",
+        "4321",
         "llm",
         "--host",
         "0.0.0.0",
