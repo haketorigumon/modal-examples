@@ -15,26 +15,12 @@ vllm_image = (
     .uv_pip_install(
         "vllm",
         "huggingface_hub[hf_transfer]",
-        pre=True,
-        extra_options="--extra-index-url https://wheels.vllm.ai/gpt-oss/ --extra-index-url https://download.pytorch.org/whl/nightly/cu128 --index-strategy unsafe-best-match",
     )
 )
 
 
-# ## Download the model weights
-
-# We'll be downloading OpenAI's model from Hugging Face. We're running
-# the 20B parameter model by default but you can easily switch to [the 120B model](https://huggingface.co/openai/gpt-oss-120b),
-# which also fits in a single H100 or H200 GPU.
-
 MODEL_NAME = "openai/gpt-oss-20b"
 MODEL_REVISION = "d666cf3b67006cf8227666739edf25164aaffdeb"
-
-# Although vLLM will download weights from Hugging Face on-demand, we want to
-# cache them so we don't do it every time our server starts. We'll use [Modal Volumes](https://modal.com/docs/guide/volumes)
-# for our cache. Modal Volumes are essentially a "shared disk" that all Modal
-# Functions can access like it's a regular disk. For more on storing model
-# weights on Modal, see [this guide](https://modal.com/docs/guide/model-weights).
 
 hf_cache_vol = modal.Volume.from_name("huggingface-cache", create_if_missing=True)
 
