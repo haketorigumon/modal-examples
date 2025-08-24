@@ -25,8 +25,6 @@ MODEL_REVISION = "6f42c8b5bf8f3f687bd6fb28833da03a19867ce8"
 hf_cache_vol = modal.Volume.from_name("huggingface-cache", create_if_missing=True)
 vllm_cache_vol = modal.Volume.from_name("vllm-cache", create_if_missing=True)
 
-FAST_BOOT = False  # slower boots but faster inference
-
 
 MAX_INPUTS = 32  # how many requests can one replica handle? tune carefully!
 CUDA_GRAPH_CAPTURE_SIZES = [  # 1, 2, 4, ... MAX_INPUTS
@@ -34,7 +32,7 @@ CUDA_GRAPH_CAPTURE_SIZES = [  # 1, 2, 4, ... MAX_INPUTS
 ]
 
 
-app = modal.App("example-gpt-oss-inference")
+app = modal.App("inference")
 
 N_GPU = 1
 MINUTES = 60  # seconds
