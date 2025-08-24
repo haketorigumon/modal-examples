@@ -19,7 +19,7 @@ vllm_image = (
 )
 
 
-MODEL_NAME = "openai/gpt-oss-20b"
+MODEL_NAME = "ByteDance-Seed/Seed-OSS-36B-Instruct"
 MODEL_REVISION = "d666cf3b67006cf8227666739edf25164aaffdeb"
 
 hf_cache_vol = modal.Volume.from_name("huggingface-cache", create_if_missing=True)
