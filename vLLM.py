@@ -85,3 +85,5 @@ def serve():
 
     subprocess.Popen(" ".join(cmd), shell=True)
 
+if __name__ == "__main__":
+    app.deploy()
