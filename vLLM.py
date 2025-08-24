@@ -20,7 +20,7 @@ vllm_image = (
 
 
 MODEL_NAME = "ByteDance-Seed/Seed-OSS-36B-Instruct"
-MODEL_REVISION = "d666cf3b67006cf8227666739edf25164aaffdeb"
+MODEL_REVISION = "6f42c8b5bf8f3f687bd6fb28833da03a19867ce8"
 
 hf_cache_vol = modal.Volume.from_name("huggingface-cache", create_if_missing=True)
 
