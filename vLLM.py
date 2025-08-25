@@ -9,7 +9,7 @@ import modal
 vllm_image = (
     modal.Image.from_registry(
         "nvidia/cuda:13.0.0-devel-ubuntu24.04",
-        add_python="3.12",
+        add_python="3.13",
     )
     .entrypoint([])
     .uv_pip_install(
