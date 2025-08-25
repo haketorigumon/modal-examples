@@ -57,27 +57,19 @@ def serve():
     import subprocess
 
     cmd = [
-        "python3",
-        "-m",
-        "vllm.entrypoints.openai.api_server",
+        "vllm",
+        "serve",
+        "--uvicorn-log-level=info",
+        MODEL_NAME,
+        "--revision",
+        MODEL_REVISION,
+        "--served-model-name",
+        MODEL_NAME,
+        "llm",
         "--host",
-        "localhost",
+        "0.0.0.0",
         "--port",
         str(VLLM_PORT),
-        "--enable-auto-tool-choice",
-        "--tool-call-parser",
-        "seed_oss",
-        "--trust-remote-code",
-        "--model",
-        "./Seed-OSS-36B-Instruct",
-        "--chat-template",
-        "./Seed-OSS-36B-Instruct/chat_template.jinja",
-        "--tensor-parallel-size",
-        "8",
-        "--dtype",
-        "bfloat16",
-        "--served-model-name",
-        "seed_oss",
     ]
 
     print(cmd)
